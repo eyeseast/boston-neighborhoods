@@ -83,4 +83,5 @@ clean:
 	rm -r data/mbta_rapid_transit
 	rm -r data/townsurvey
 	rm -r data/trains
-	rm data/*.json
+	rm $(find data -type f -name *.json)
+

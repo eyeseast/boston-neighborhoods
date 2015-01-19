@@ -8,7 +8,7 @@ Tarbell project configuration
 #SPREADSHEET_KEY = "None"
 
 # Exclude these files from publication
-EXCLUDES = ['*.md', 'requirements.txt', '*.py']
+EXCLUDES = ['*.md', 'requirements.txt', '*.py', 'Makefile']
 
 # Spreadsheet cache lifetime in seconds. (Default: 4)
 # SPREADSHEET_CACHE_TTL = 4
