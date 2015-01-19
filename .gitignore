@@ -1,2 +1,8 @@
 *.pyc
 .DS_Store
+
+data/*.zip
+data/mbta_rapid_transit
+data/mbtabus
+data/townsurvey
+data/trains
