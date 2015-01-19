@@ -1,12 +1,43 @@
 {% extends "_base.html" %}
 
+{% block nav %}{% endblock nav %}
+
+{% block css %}
+<link href="https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css" rel="stylesheet">
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+
+</style>
+{% endblock css %}
+
 {% block content %}
-<div class="container">
-  <div class="jumbotron">
-    <h1>Welcome to your new project!</h1>
-    <p>Replace this message with your own content in <code>{{ PROJECT_PATH }}/index.html</code>.</p>
-    <p>Learn more on the <a href="_example.html">example page</a>.</p>
-  </div>
-</div>
+<div id="map"></div>
 {% endblock content %}
 
+{% block scripts %}
+<script src="//api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js"></script>
+<script src="//api.tiles.mapbox.com/mapbox.js/plugins/turf/v1.3.0/turf.min.js"></script>
+<script src="bower_components/topojson/topojson.js"></script>
+<script>
+// access token
+L.mapbox.accessToken = 'pk.eyJ1IjoiY2hyaXNhbWljbyIsImEiOiJLUGZSN1RRIn0.KIM5o5IR4lBNgGCKDN6Umw';
+
+var URLS = {
+    routes: 'data/routes.json',
+    stations: 'data/stations.json'
+}
+
+// Create a map
+var map = L.mapbox.map('map', 'chrisamico.map-o1ttivsi')
+    .setView([42.37592, -71.09287], 12);
+
+$.getJSON(URLS.routes, function(data) {
+    map.mbta_routes = L.mapbox.featureLayer(topojson.feature(data, data.objects.MBTA_ARC)).addTo(map);
+    map.bus_routes = L.mapbox.featureLayer(topojson.feature(data, data.objects.MBTABUSROUTES_ARC)).addTo(map);
+    //map.train_routes = L.mapbox.featureLayer(topojson.feature(data, data.objects.TRAINS_ARC)).addTo(map);
+});
+
+</script>
+
+{% endblock scripts %}
